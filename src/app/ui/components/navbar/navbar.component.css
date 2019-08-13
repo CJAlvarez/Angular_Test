@@ -6,3 +6,16 @@
 .nav-link:hover {
     border-bottom: 2px solid rgba(255, 255, 255, 0.5);
 }
+
+
+@media (max-width: 768px) {
+    .d-md-display {
+        display: none;
+    }
+    .active-navbarItem {
+        border-right: 3px solid grey;
+        font-weight: bold;
+        border-radius: 40%;
+    }
+    
+}
