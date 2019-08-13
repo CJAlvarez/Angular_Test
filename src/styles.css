@@ -34,6 +34,10 @@
     opacity: .5;
 }
 
+.pointer {
+    cursor: pointer;
+}
+
 @media (max-width: 768px) {
     .d-md-display {
         display: none;
