@@ -12,4 +12,7 @@ export class PatientsComponent implements OnInit {
   ngOnInit() {
   }
 
+  isBrowsing = () => window.location.href.split('/').pop() != 'patients';
+
 }
+

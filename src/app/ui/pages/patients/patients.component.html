@@ -1,25 +1,55 @@
-<div class="container mt-4">
-  <div class="row">
+<div *ngIf="isBrowsing(); then browsing else notBrowsing"></div>
+
+<ng-template #notBrowsing>
+  <div class="container mt-4">
+    <div class="row">
+
+      <!-- Create patient -->
+      <div class="col-md-6 p-2">
+        <div class="col-12 rounded btn btn-outline-cool pointer" routerLink="/patients/createPatients">
+          <div>
+            <i class="fas fa-user-plus fa-3x"></i>
+            <h1>Create patient</h1>
+          </div>
+        </div>
+      </div>
+
+      <!-- List patients -->
+      <div class="col-md-6 p-2">
+        <div class="col-12 rounded btn btn-outline-cool pointer" routerLink="/patients/listPatients">
+          <div>
+            <i class="fas fa-clipboard-list fa-3x"></i>
+            <h1>List patients</h1>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #browsing>
+  <div class="col-12 d-md-display leftMenu-border pl-0 pr-1">
 
     <!-- Create patient -->
-    <div class="col-md-6 p-2">
-      <div class="col-12 rounded btn btn-outline-cool pointer" routerLink="createPatient">
+    <div class="col-12 p-2">
+      <div class="col-12 rounded btn btn-outline-cool pointer" routerLink="/patients/createPatients">
         <div>
-          <i class="fas fa-user-plus fa-3x"></i>
-          <h1>Create patient</h1>
+          <i class="fas fa-user-plus fa-lg"></i>
+          <h4>Create patient</h4>
         </div>
       </div>
     </div>
 
     <!-- List patients -->
-    <div class="col-md-6 p-2">
-      <div class="col-12 rounded btn btn-outline-cool pointer" routerLink="listPatient">
+    <div class="col-12 p-2">
+      <div class="col-12 rounded btn btn-outline-cool pointer" routerLink="/patients/listPatients">
         <div>
-          <i class="fas fa-clipboard-list fa-3x"></i>
-          <h1>List patients</h1>
+          <i class="fas fa-clipboard-list fa-lg"></i>
+          <h4>List patients</h4>
         </div>
       </div>
     </div>
 
   </div>
-</div>
+</ng-template>
