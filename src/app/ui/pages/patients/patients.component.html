@@ -33,23 +33,25 @@
 
     <!-- Create patient -->
     <div class="col-12 p-2">
-      <div class="col-12 rounded btn btn-outline-cool pointer" routerLink="/patients/createPatients">
+      <div class="col-12 rounded btn btn-outline-cool pointer" routerLink="/patients/createPatients"
+        routerLinkActive="active-patientButton" [routerLinkActiveOptions]="{exact:true}">
         <div>
-          <i class="fas fa-user-plus fa-lg"></i>
-          <h4>Create patient</h4>
-        </div>
+          <i class=" fas fa-user-plus fa-lg"></i>
+        <h4>Create patient</h4>
       </div>
     </div>
+  </div>
 
-    <!-- List patients -->
-    <div class="col-12 p-2">
-      <div class="col-12 rounded btn btn-outline-cool pointer" routerLink="/patients/listPatients">
-        <div>
-          <i class="fas fa-clipboard-list fa-lg"></i>
-          <h4>List patients</h4>
-        </div>
+  <!-- List patients -->
+  <div class="col-12 p-2">
+    <div class="col-12 rounded btn btn-outline-cool pointer" routerLink="/patients/listPatients"
+    routerLinkActive="active-patientButton" [routerLinkActiveOptions]="{exact:true}">
+      <div>
+        <i class="fas fa-clipboard-list fa-lg"></i>
+        <h4>List patients</h4>
       </div>
     </div>
+  </div>
 
   </div>
 </ng-template>

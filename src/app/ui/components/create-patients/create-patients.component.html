@@ -1,1 +1,66 @@
-<div class="flex-fill">create</div>
+<div class="col-12">
+  <h2 class="text-white text-center">Create patient</h2>
+  <form [formGroup]="patientForm" (ngSubmit)="onSubmit()" class="text-white mt-3">
+
+    <div class="container">
+      <div class="row mb-2">
+
+        <!-- Name -->
+        <div class="col-md-6">
+          <label class="mb-1" for="name">Name</label>
+          <i *ngIf="patientForm.controls.name.valid; then nameValid else nameInvalid"></i>
+
+          <ng-template #nameValid>
+            <i class="fa fa-check-circle check pl-2"></i>
+          </ng-template>
+
+          <ng-template #nameInvalid>
+            <i class="fa fa-exclamation-circle uncheck pl-2" *ngIf="patientForm.controls.name.touched"></i>
+          </ng-template>
+
+          <input type="text" class="form-control" id="name" formControlName="name" placeholder="Name...">
+          <p class="alert alert-danger"
+            *ngIf="patientForm.controls.name.invalid && patientForm.controls.name.touched">
+            Required 'Name' field.
+          </p>
+        </div>
+
+        <!-- Age -->
+        <div class="col-md-6">
+          <label class="mb-1" for="age">Age</label>
+          <i *ngIf="patientForm.controls.age.valid; then ageValid else ageInvalid"></i>
+
+          <ng-template #ageValid>
+            <i class="fa fa-check-circle check pl-2"></i>
+          </ng-template>
+
+          <ng-template #ageInvalid>
+            <i class="fa fa-exclamation-circle uncheck pl-2" *ngIf="patientForm.controls.age.touched"></i>
+          </ng-template>
+
+          <input type="number" class="form-control" id="age" formControlName="age" placeholder="Age..." min="0">
+          <p class="alert alert-danger"
+            *ngIf="patientForm.controls.age.invalid && patientForm.controls.age.touched">
+            Required 'Age' field.
+          </p>
+        </div>
+      </div>
+
+      <div class="row mb-2">
+        <!-- Submit -->
+        <div class="col-12 d-flex justify-content-center">
+          <button type="submit" class="btn btn-success w-25" [disabled]="!patientForm.valid">Create</button>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-12">
+          <p class="alert alert-danger" *ngIf="!patientForm.valid">
+            Complete each field.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>

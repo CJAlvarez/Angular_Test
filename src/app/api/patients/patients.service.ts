@@ -5,5 +5,9 @@ import { Injectable } from '@angular/core';
 })
 export class PatientsService {
 
+  postPatient(patient: any) {
+    console.log(patient);
+  }
+
   constructor() { }
 }

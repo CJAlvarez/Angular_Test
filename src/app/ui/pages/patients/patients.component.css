@@ -1,3 +1,8 @@
 .leftMenu-border {
     border-right: 4px dotted white !important;
 }
+
+.active-patientButton {
+    box-shadow: inset 0 0 0 20rem white;
+    color: var(--darken-2);
+}
