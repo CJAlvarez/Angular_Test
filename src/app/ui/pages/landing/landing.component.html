@@ -1,0 +1,16 @@
+<div class="landing-component d-flex flex-column">
+
+  <!-- Greet -->
+  <h1 class="text-white text-center mt-3">¡{{greet}}! <i *ngIf="isDay(), then day else night"></i></h1>
+  <ng-template #day><i class="fas fa-sun fa-spin"></i></ng-template>
+  <ng-template #night><i class="fas fa-moon" id="night"></i></ng-template>
+  <!-- /Greet-->
+
+  <h3 class="text-white mt-1 text-center p-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque volutpat at dolor sit amet laoreet. Nulla
+    varius justo ut lorem dapibus pretium.</h3>
+
+    <div class="d-flex mb-2">
+      <button class="btn btn-outline-cool rounded mx-auto" routerLink="/patients"><h2>Get started</h2></button>
+    </div>
+
+</div>

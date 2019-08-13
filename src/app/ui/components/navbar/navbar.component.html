@@ -1,0 +1,60 @@
+<nav class="navbar navbar-expand-sm">
+  <a class="navbar-brand text-white p-1" routerLink="/"><i class="fas fa-stethoscope fa-2x"></i></a>
+
+  <!-- Modal button md -->
+  <div class="text-white d-md-none" data-toggle="modal" data-target="#menuModal">
+    <i class="fas fa-bars fa-lg"></i>
+  </div>
+
+  <!-- Links lg -->
+  <ul class="navbar-nav ml-auto d-md-display">
+
+    <!-- Home -->
+    <li class="nav-item">
+      <a class="nav-link text-white" routerLink="/" routerLinkActive="active-navbarItem"
+        [routerLinkActiveOptions]="{exact:true}">Home</a>
+    </li>
+
+    <!-- Patients -->
+    <li class="nav-item">
+      <a class="nav-link text-white" routerLink="/patients" routerLinkActive="active-navbarItem"
+        [routerLinkActiveOptions]="{exact:true}">Patients </a>
+    </li>
+  </ul>
+
+</nav>
+
+
+<!-- Links md -->
+<div class="modal fade d-md-none" id="menuModal">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title" data-dismiss="modal"><i class="fas fa-stethoscope text-secondary" routerLink="/"></i></h4>
+        <button type="button" class="close text-danger" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <!-- Links lg -->
+        <ul class="navbar-nav">
+
+          <!-- Home -->
+          <li class="nav-item">
+            <a class="nav-link text-secondary" data-dismiss="modal" routerLink="/" routerLinkActive="active-navbarItem"
+              [routerLinkActiveOptions]="{exact:true}"><i class="fas fa-home"></i> Home</a>
+          </li>
+
+          <!-- Patients -->
+          <li class="nav-item">
+            <a class="nav-link text-secondary" data-dismiss="modal" routerLink="/patients" routerLinkActive="active-navbarItem"
+              [routerLinkActiveOptions]="{exact:true}"><i class="fas fa-user-injured"></i> Patients </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>

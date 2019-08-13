@@ -1,0 +1,8 @@
+.active-navbarItem {
+    border-bottom: 2px solid white;
+    font-weight: bold;
+}
+
+.nav-link:hover {
+    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+}
