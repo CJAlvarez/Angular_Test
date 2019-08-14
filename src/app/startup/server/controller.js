@@ -18,8 +18,8 @@ const reg_numberOnly = new RegExp(`^[0-9]+(.[0-9]+)?$`);
 const reg_id = new RegExp(`^[0-9]{13}$`);
 const reg_name = new RegExp(`^[a-zA-Z]`);
 const reg_phone = new RegExp(`^[0-9]{8}$`);
-const reg_age = new RegExp(`^[0-9][0-9]?[0-9]?`);
-const reg_email = new RegExp(`/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/`);
+const reg_age = new RegExp(`^[0-9](([0-9])?[0-9])?$`);
+const reg_email = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
 /*
 Select Method
@@ -122,35 +122,59 @@ router.post('/insert_patient', (req, res, next) => {
         else {
             switch (value.label) {
                 case 'id': {
-
+                    if (!reg_id.test(value.value)) {
+                        errors.push({
+                            status: 400,
+                            message: `Error: Erroneous ${value.label} value.`
+                        });
+                    }
                     break;
                 }
-                case 'firstName': {
-
-                    break;
-                }
-                case 'lastName': {
-
+                case 'firstName': { }
+                case 'lastName': { }
+                case 'gender': {
+                    if (!reg_name.test(value.value)) {
+                        errors.push({
+                            status: 400,
+                            message: `Error: Erroneous ${value.label} value.`
+                        });
+                    }
                     break;
                 }
                 case 'age': {
-
-                    break;
-                }
-                case 'gender': {
-
+                    if (!reg_age.test(value.value)) {
+                        errors.push({
+                            status: 400,
+                            message: `Error: Erroneous ${value.label} value.`
+                        });
+                    }
                     break;
                 }
                 case 'phone': {
-
+                    if (!reg_phone.test(value.value)) {
+                        errors.push({
+                            status: 400,
+                            message: `Error: Erroneous ${value.label} value.`
+                        });
+                    }
                     break;
                 }
                 case 'email': {
-
+                    if (!reg_email.test(value.value)) {
+                        errors.push({
+                            status: 400,
+                            message: `Error: Erroneous ${value.label} value.`
+                        });
+                    }
                     break;
                 }
                 case 'createdAt': {
-
+                    if (isNaN(Date.parse(value.value))) {
+                        errors.push({
+                            status: 400,
+                            message: `Error: Erroneous ${value.label} value.`
+                        });
+                    }
                     break;
                 }
 
@@ -169,10 +193,14 @@ router.post('/insert_patient', (req, res, next) => {
         `;
         con.query(query, values, (err, result, fields) => {
             if (err) {
-                next(err);
-                res.status(500).json({
-                    message: 'Internal server error.'
-                });
+                if (err.sqlState == "23000") {
+                    res.status(400).json({
+                        message: 'Error: Duplicate key.'
+                    });
+                } else {
+                    next(err);
+                    res.status(500).json(err);
+                }
             } else {
                 res.status(200).json({
                     message: 'Patient has been inserted successfully!',
