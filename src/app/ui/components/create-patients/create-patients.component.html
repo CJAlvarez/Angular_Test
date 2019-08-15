@@ -5,46 +5,175 @@
     <div class="container">
       <div class="row mb-2">
 
-        <!-- Name -->
+        <!-- Firstname -->
         <div class="col-md-6">
-          <label class="mb-1" for="name">Name</label>
-          <i *ngIf="patientForm.controls.name.valid; then nameValid else nameInvalid"></i>
+          <label class="mb-1" for="firstname">Firstname</label>
+          <i *ngIf="patientForm.controls.firstname.valid; then firstnameValid else lastnameInvalid"></i>
 
-          <ng-template #nameValid>
+          <ng-template #fistnameValid>
             <i class="fa fa-check-circle check pl-2"></i>
           </ng-template>
 
-          <ng-template #nameInvalid>
-            <i class="fa fa-exclamation-circle uncheck pl-2" *ngIf="patientForm.controls.name.touched"></i>
+          <ng-template #firstnameInvalid>
+            <i class="fa fa-exclamation-circle uncheck pl-2" *ngIf="patientForm.controls.firstname.touched"></i>
           </ng-template>
 
-          <input type="text" class="form-control" id="name" formControlName="name" placeholder="Name...">
+          <input type="text" class="form-control" id="firstname" formControlName="firstname" placeholder="Firstname...">
           <p class="alert alert-danger"
-            *ngIf="patientForm.controls.name.invalid && patientForm.controls.name.touched">
-            Required 'Name' field.
+            *ngIf="patientForm.controls.firstname.invalid && patientForm.controls.firstname.touched">
+            Required 'Firstname' field.
           </p>
         </div>
 
-        <!-- Age -->
+        <!-- Lastname -->
         <div class="col-md-6">
-          <label class="mb-1" for="age">Age</label>
-          <i *ngIf="patientForm.controls.age.valid; then ageValid else ageInvalid"></i>
+          <label class="mb-1" for="lastname">Lastname</label>
+          <i *ngIf="patientForm.controls.lastname.valid; then lastnameValid else lastnameInvalid"></i>
 
-          <ng-template #ageValid>
+          <ng-template #lastnameValid>
             <i class="fa fa-check-circle check pl-2"></i>
           </ng-template>
 
-          <ng-template #ageInvalid>
-            <i class="fa fa-exclamation-circle uncheck pl-2" *ngIf="patientForm.controls.age.touched"></i>
+          <ng-template #lastnameInvalid>
+            <i class="fa fa-exclamation-circle uncheck pl-2" *ngIf="patientForm.controls.lastname.touched"></i>
           </ng-template>
 
-          <input type="number" class="form-control" id="age" formControlName="age" placeholder="Age..." min="0">
+          <input type="text" class="form-control" id="lastname" formControlName="lastname" placeholder="Lastname...">
           <p class="alert alert-danger"
-            *ngIf="patientForm.controls.age.invalid && patientForm.controls.age.touched">
-            Required 'Age' field.
+            *ngIf="patientForm.controls.lastname.invalid && patientForm.controls.lastname.touched">
+            Required 'Lastname' field.
           </p>
         </div>
       </div>
+
+      <div class="row mb-2">
+
+          <!-- Id -->
+          <div class="col-md-6">
+            <label class="mb-1" for="id">Id</label>
+            <i *ngIf="patientForm.controls.id.valid; then idValid else idInvalid"></i>
+  
+            <ng-template #idValid>
+              <i class="fa fa-check-circle check pl-2"></i>
+            </ng-template>
+  
+            <ng-template #idInvalid>
+              <i class="fa fa-exclamation-circle uncheck pl-2" *ngIf="patientForm.controls.id.touched"></i>
+            </ng-template>
+  
+            <input type="text" class="form-control" id="id" formControlName="id" placeholder="####-#####-#####">
+            <p class="alert alert-danger"
+              *ngIf="patientForm.controls.id.invalid && patientForm.controls.id.touched">
+              Required 'Id' field.
+            </p>
+          </div>
+  
+          <!-- Age -->
+          <div class="col-md-6">
+            <label class="mb-1" for="age">Age</label>
+            <i *ngIf="patientForm.controls.age.valid; then ageValid else ageInvalid"></i>
+  
+            <ng-template #ageValid>
+              <i class="fa fa-check-circle check pl-2"></i>
+            </ng-template>
+  
+            <ng-template #ageInvalid>
+              <i class="fa fa-exclamation-circle uncheck pl-2" *ngIf="patientForm.controls.age.touched"></i>
+            </ng-template>
+  
+            <input type="number" class="form-control" id="age" formControlName="age" placeholder="Age..." min="0">
+            <p class="alert alert-danger"
+              *ngIf="patientForm.controls.age.invalid && patientForm.controls.age.touched">
+              Required 'Age' field.
+            </p>
+          </div>
+        </div>
+
+        <div class="row mb-2">
+
+            <!-- Name -->
+            <div class="col-md-6">
+              <label class="mb-1" for="name">Name</label>
+              <i *ngIf="patientForm.controls.name.valid; then nameValid else nameInvalid"></i>
+    
+              <ng-template #nameValid>
+                <i class="fa fa-check-circle check pl-2"></i>
+              </ng-template>
+    
+              <ng-template #nameInvalid>
+                <i class="fa fa-exclamation-circle uncheck pl-2" *ngIf="patientForm.controls.name.touched"></i>
+              </ng-template>
+    
+              <input type="text" class="form-control" id="name" formControlName="name" placeholder="Name...">
+              <p class="alert alert-danger"
+                *ngIf="patientForm.controls.name.invalid && patientForm.controls.name.touched">
+                Required 'Name' field.
+              </p>
+            </div>
+    
+            <!-- Age -->
+            <div class="col-md-6">
+              <label class="mb-1" for="age">Age</label>
+              <i *ngIf="patientForm.controls.age.valid; then ageValid else ageInvalid"></i>
+    
+              <ng-template #ageValid>
+                <i class="fa fa-check-circle check pl-2"></i>
+              </ng-template>
+    
+              <ng-template #ageInvalid>
+                <i class="fa fa-exclamation-circle uncheck pl-2" *ngIf="patientForm.controls.age.touched"></i>
+              </ng-template>
+    
+              <input type="number" class="form-control" id="age" formControlName="age" placeholder="Age..." min="0">
+              <p class="alert alert-danger"
+                *ngIf="patientForm.controls.age.invalid && patientForm.controls.age.touched">
+                Required 'Age' field.
+              </p>
+            </div>
+          </div>
+
+          <div class="row mb-2">
+
+              <!-- Name -->
+              <div class="col-md-6">
+                <label class="mb-1" for="name">Name</label>
+                <i *ngIf="patientForm.controls.name.valid; then nameValid else nameInvalid"></i>
+      
+                <ng-template #nameValid>
+                  <i class="fa fa-check-circle check pl-2"></i>
+                </ng-template>
+      
+                <ng-template #nameInvalid>
+                  <i class="fa fa-exclamation-circle uncheck pl-2" *ngIf="patientForm.controls.name.touched"></i>
+                </ng-template>
+      
+                <input type="text" class="form-control" id="name" formControlName="name" placeholder="Name...">
+                <p class="alert alert-danger"
+                  *ngIf="patientForm.controls.name.invalid && patientForm.controls.name.touched">
+                  Required 'Name' field.
+                </p>
+              </div>
+      
+              <!-- Age -->
+              <div class="col-md-6">
+                <label class="mb-1" for="age">Age</label>
+                <i *ngIf="patientForm.controls.age.valid; then ageValid else ageInvalid"></i>
+      
+                <ng-template #ageValid>
+                  <i class="fa fa-check-circle check pl-2"></i>
+                </ng-template>
+      
+                <ng-template #ageInvalid>
+                  <i class="fa fa-exclamation-circle uncheck pl-2" *ngIf="patientForm.controls.age.touched"></i>
+                </ng-template>
+      
+                <input type="number" class="form-control" id="age" formControlName="age" placeholder="Age..." min="0">
+                <p class="alert alert-danger"
+                  *ngIf="patientForm.controls.age.invalid && patientForm.controls.age.touched">
+                  Required 'Age' field.
+                </p>
+              </div>
+            </div>
 
       <div class="row mb-2">
         <!-- Submit -->
