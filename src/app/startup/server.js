@@ -1,14 +1,12 @@
 const express = require('express');
 const path = require('path');
 const http = require('http');
-const morgan = require('morgan');
 var cors = require('cors');
 var bodyParser = require("body-parser");
 
 const app = express();
 
 app.use(cors({ origin: '*' }));
-app.use(morgan('dev'));
 app.options('*', cors());
 
 app.use(bodyParser.urlencoded({

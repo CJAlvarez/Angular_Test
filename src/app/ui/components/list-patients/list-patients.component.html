@@ -11,37 +11,48 @@
                 <!-- Gender -->
                 <div *ngIf="patient.gender == 'Male'; then Male else Female"></div>
                 <ng-template #Male>
-                    <div class="col-md-1 d-flex justify-content-start pl-1">
+                    <div class="col-md-1 d-flex justify-content-center pl-1">
                         <i class="pl-3 fas fa-male mr-0 mt-3 fa-2x male"></i>
                     </div>
                 </ng-template>
                 <ng-template #Female>
-                    <div class="col-md-1 d-flex justify-content-start pl-1">
+                    <div class="col-md-1 d-flex justify-content-center pl-1">
                         <i class="pl-3 fas fa-female mr-0 mt-3 fa-2x female"></i>
                     </div>
                 </ng-template>
                 <!-- /Gender -->
 
-                <div class="col-md-10 pl-3">
+                <!-- Large version -->
+                <div class="col-md-10 pl-3 d-md-display">
                     <h5>{{patient.firstName}} {{patient.lastName}}
                         <small><i class="">({{patient.gender}})</i></small>
                     </h5>
                     <div class="d-flex">
                         <div class="p-1">Contact: </div>
-                        <div class="p-1">{{patient.email}} / {{patient.phone}}</div>
+                        <div class="p-1" style="word-break: break-all;">{{patient.email}} / {{patient.phone}}</div>
                     </div>
                 </div>
 
-                <!-- Large version -->
                 <div class="d-md-display col-md-1 pr-0 d-flex flex-row-reverse">
-                    <div class="row m-2 pointer" id="remove-client">
-                        <i class="fas fa-trash text-outline-danger"></i>
+                    <div class="d-md-display row m-2 pointer" id="remove-client" (click)="deletePatient(patient.id)">
+                        <i class="d-md-display fas fa-trash text-outline-danger"></i>
                     </div>
                 </div>
 
                 <!-- Small version -->
-                <div class="d-md-none col-md-1 d-flex flex-row-reverse p-0 pb-1 mb-1 pr-0">
-                    <i id="remove-client" class="pointer fas fa-trash fa-lg text-outline-danger ml-1"></i>
+                <div class="col-md-10 pl-3 d-md-none text-center">
+                    <h5>{{patient.firstName}} {{patient.lastName}}
+                        <small><i class="">({{patient.gender}})</i></small>
+                    </h5>
+                    <div class="d-flex flex-column">
+                        <div class="p-1" style="word-break: break-all;">{{patient.phone}}</div>
+                        <div class="p-1" style="word-break: break-all;">{{patient.email}}</div>
+                    </div>
+                </div>
+
+                <div class="d-md-none col-md-1 d-flex flex-row-reverse p-0 pb-1 mb-1 pr-0 text-outline-danger">
+                    <i id="d-md-none remove-client" class="pointer fas fa-trash fa-lg ml-1" 
+                    (click)="deletePatient(patient.id)"></i>
                 </div>
 
             </div>

@@ -13,25 +13,17 @@ export class PatientsService {
 
   constructor(private http: HttpClient) { }
 
-  getPatients(params) {    
+  getPatients(params) {
     return this.http.get(`${this.API_URI}/get_patients?angular=true${params.order ? `&order=${params.order}` : ''}${params.limit ? `&limit=${params.limit}` : ''}${params.skip ? `&skip=${params.skip}` : ''}`);
   }
+
+  deletePatient(id: string) {
+    return this.http.delete(`${this.API_URI}/delete_patient?angular=true&id=${id}`);
+  }
+
   /*
-
-  getGame(id: string) {
-    return this.http.get(`${this.API_URI}/games/${id}`);
-  }
-
-  deleteGame(id: string) {
-    return this.http.delete(`${this.API_URI}/games/${id}`);
-  }
-
   saveGame(game: Game) {
     return this.http.post(`${this.API_URI}/games`, game);
-  }
-
-  updateGame(id: string|number, updatedGame: Game): Observable<Game> {
-    return this.http.put(`${this.API_URI}/games/${id}`, updatedGame);
   }
   */
 }

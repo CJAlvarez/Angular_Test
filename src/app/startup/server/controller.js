@@ -25,7 +25,6 @@ const reg_email = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"
 Select Method
 */
 router.get('/get_patients', (req, res, next) => {
-console.log("sa");
     var values = [
         req.query.order,
         req.query.limit,
@@ -210,6 +209,66 @@ router.post('/insert_patient', (req, res, next) => {
         });
     }
 
+    // if there are errors 
+    else {
+        res.status(400).json({
+            errors: errors
+        });
+    }
+});
+
+
+/*
+Delete Method
+*/
+router.delete('/delete_patient', (req, res, next) => {
+    var values = [
+    req.query.id
+    ].filter(val => val);
+    
+    var errors = [];
+    
+    /* VALIDATIONS */
+    
+    // if id does not exist 
+    if(!req.query.id) {
+        errors.push({
+            status: 400,
+            message:'Error: \'id\' field required.'
+        });
+    }
+    
+    /* AMBIGUOUS DATA */
+    
+    // if there are more ids 
+    if(req.query.id instanceof Array && req.query.id.length > 1) {
+        errors.push({
+            status: 400,
+            message:'Error: Ambiguous id.'
+        });
+    } 
+    
+    // if OK
+    if(errors.length == 0) {
+        var query = `DELETE FROM patients WHERE id=?;`;
+        
+        con.query(query, values, (err, result, fields) => {
+            if(err) {
+                next(err);
+                res.status(500).json({
+                    message: 'Internal server error.'
+                });
+            } else {
+                res.status(200).json({
+                    message: result.affectedRows > 0
+                    ? 'Patient has been deleted successfuly!'
+                    : `There is not a patient with id=${ req.query.id }.`,
+                    affectedRows: result.affectedRows
+                });
+            }
+        });
+    }
+    
     // if there are errors 
     else {
         res.status(400).json({

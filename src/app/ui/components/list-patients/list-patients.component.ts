@@ -1,5 +1,6 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit   } from '@angular/core';
 import { PatientsService } from 'src/app/api/patients/patients.service';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-list-patients',
@@ -10,7 +11,7 @@ export class ListPatientsComponent implements OnInit {
 
   patients: any = [];
   order: any;
-  skip: any = 1;
+  skip: any = 0;
   limit = 5;
 
   constructor(private patientsService: PatientsService) { }
@@ -29,6 +30,31 @@ export class ListPatientsComponent implements OnInit {
       );
   }
 
+  deletePatient(id) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#1c9a77',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.value) {
+        this.patientsService.deletePatient(id).subscribe(
+          res => {
+            this.getPatients(this.order, this.skip, this.limit);
+            Swal.fire(
+              'Deleted!',
+              'Your file has been deleted.',
+              'success'
+            );
+          },
+          err => console.error(err)
+        );
 
+      }
+    })
+  }
 
 }
