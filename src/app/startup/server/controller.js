@@ -25,7 +25,7 @@ const reg_email = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"
 Select Method
 */
 router.get('/get_patients', (req, res, next) => {
-
+console.log("sa");
     var values = [
         req.query.order,
         req.query.limit,

@@ -1,22 +1,37 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, Response } from '@angular/http';
-import 'rxjs/Rx';
+import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { catchError, retry } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { collectExternalReferences } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PatientsService {
 
-  getURL = 'https://127.0.0.1:8200/api/get_patients';
+  API_URI = 'http://127.0.0.1:8200/api';
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
-  postPatient(patient: any) {
-    console.log(patient);
+  getPatients(params) {    
+    return this.http.get(`${this.API_URI}/get_patients?angular=true${params.order ? `&order=${params.order}` : ''}${params.limit ? `&limit=${params.limit}` : ''}${params.skip ? `&skip=${params.skip}` : ''}`);
+  }
+  /*
+
+  getGame(id: string) {
+    return this.http.get(`${this.API_URI}/games/${id}`);
   }
 
-  getPatients(params) {
-    return this.http.get(`${this.getURL}?${params.order ? `order=${params.order}` : ''}${params.limit ? `?limit=${params.limit}` : ''}${params.skip ? `?skip=${params.skip}` : ''}`)
-      .map(res => res.json());
+  deleteGame(id: string) {
+    return this.http.delete(`${this.API_URI}/games/${id}`);
   }
+
+  saveGame(game: Game) {
+    return this.http.post(`${this.API_URI}/games`, game);
+  }
+
+  updateGame(id: string|number, updatedGame: Game): Observable<Game> {
+    return this.http.put(`${this.API_URI}/games/${id}`, updatedGame);
+  }
+  */
 }

@@ -1,3 +1,53 @@
 <div class="col-12">
-    <h2 class="text-white text-center">List patients</h2>
+    <h2 class="text-white text-center">Patients</h2>
+
+    <!-- Patients -->
+    <form class="text-white mt-3" *ngFor="let patient of patients">
+
+        <!-- Patient Card -->
+        <div class="bg-outline-cool col-12 rounded">
+            <div class="row m-0 w-100">
+
+                <!-- Gender -->
+                <div *ngIf="patient.gender == 'Male'; then Male else Female"></div>
+                <ng-template #Male>
+                    <div class="col-md-1 d-flex justify-content-start pl-1">
+                        <i class="pl-3 fas fa-male mr-0 mt-3 fa-2x male"></i>
+                    </div>
+                </ng-template>
+                <ng-template #Female>
+                    <div class="col-md-1 d-flex justify-content-start pl-1">
+                        <i class="pl-3 fas fa-female mr-0 mt-3 fa-2x female"></i>
+                    </div>
+                </ng-template>
+                <!-- /Gender -->
+
+                <div class="col-md-10 pl-3">
+                    <h5>{{patient.firstName}} {{patient.lastName}}
+                        <small><i class="">({{patient.gender}})</i></small>
+                    </h5>
+                    <div class="d-flex">
+                        <div class="p-1">Contact: </div>
+                        <div class="p-1">{{patient.email}} / {{patient.phone}}</div>
+                    </div>
+                </div>
+
+                <!-- Large version -->
+                <div class="d-md-display col-md-1 pr-0 d-flex flex-row-reverse">
+                    <div class="row m-2 pointer" id="remove-client">
+                        <i class="fas fa-trash text-outline-danger"></i>
+                    </div>
+                </div>
+
+                <!-- Small version -->
+                <div class="d-md-none col-md-1 d-flex flex-row-reverse p-0 pb-1 mb-1 pr-0">
+                    <i id="remove-client" class="pointer fas fa-trash fa-lg text-outline-danger ml-1"></i>
+                </div>
+
+            </div>
+        </div>
+        <!-- /Patient card -->
+
+    </form>
+    <!-- /Patients -->
 </div>

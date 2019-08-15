@@ -8,6 +8,22 @@
     background-image: linear-gradient(to right top, #398b77, #369680, #31a289, #2bad92, #21b99b, #37c3a5, #48ccae, #57d6b8, #78e0c5, #94e9d2, #aef3df, #c7fcec);
 }
 
+.bg-outline-cool,
+.bg-outline-cool:hover {
+    border-color: rgba(255, 255, 255, 0.9);
+}
+
+.bg-outline-cool {
+    color: white;
+}
+
+.bg-outline-cool:hover {
+    cursor: pointer;
+    box-shadow: inset 0 0 0 20rem rgba(255, 255, 255, 0.9);
+    color: #212529 !important;
+    border-left: 4px solid #212529;
+}
+
 .btn-outline-cool,
 .btn-outline-cool:hover {
     border-color: white;
@@ -34,8 +50,20 @@
     opacity: .5;
 }
 
+.text-outline-danger:hover {
+    color: var(--danger)
+}
+
 .pointer {
     cursor: pointer;
+}
+
+.female:hover {
+    color: #FF80AB;
+}
+
+.male:hover {
+    color: #1976D2;
 }
 
 @media (max-width: 768px) {

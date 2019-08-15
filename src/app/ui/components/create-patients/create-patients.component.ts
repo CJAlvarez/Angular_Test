@@ -30,8 +30,6 @@ export class CreatePatientsComponent implements OnInit {
 
   onSubmit() {
     this.patient = this.savePatient();
-    console.log(this.patientsService.getPatients({}));
-    this.patientsService.postPatient(this.patient);
   }
 
   savePatient() {
