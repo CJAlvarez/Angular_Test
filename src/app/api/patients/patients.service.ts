@@ -13,6 +13,10 @@ export class PatientsService {
 
   constructor(private http: HttpClient) { }
 
+  getPatientCount() {
+    return this.http.get(`${this.API_URI}/get_patientcount?angular=true`);
+  }
+
   getPatients(params) {
     return this.http.get(`${this.API_URI}/get_patients?angular=true${params.order ? `&order=${params.order}` : ''}${params.limit ? `&limit=${params.limit}` : ''}${params.skip ? `&skip=${params.skip}` : ''}`);
   }
@@ -21,9 +25,9 @@ export class PatientsService {
     return this.http.delete(`${this.API_URI}/delete_patient?angular=true&id=${id}`);
   }
 
-  /*
-  saveGame(game: Game) {
-    return this.http.post(`${this.API_URI}/games`, game);
+  insertPatient(patient: any) {
+    return this.http.post(`${this.API_URI}/insert_patient`, patient);
   }
-  */
+
+
 }

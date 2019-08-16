@@ -1,0 +1,12 @@
+.color-outline-cool {
+    cursor: pointer;
+    color: white;
+}
+
+.color-outline-cool:hover {
+    font-weight: bold;
+}
+.color-outline-cool:active {
+    border-bottom: 2px solid white;
+    opacity: 0.6;
+}

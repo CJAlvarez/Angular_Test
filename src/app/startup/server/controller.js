@@ -14,9 +14,10 @@ var con = mysql.createPool({
 
 
 // Regex
-const reg_numberOnly = new RegExp(`^[0-9]+(.[0-9]+)?$`);
+const reg_real = new RegExp(`^[0-9]+(.[0-9]+)?$`);
+const reg_numberOnly = new RegExp(`^[0-9]+$`);
 const reg_id = new RegExp(`^[0-9]{13}$`);
-const reg_name = new RegExp(`^[a-zA-Z]`);
+const reg_name = new RegExp(`^([^0-9]*)$`);
 const reg_phone = new RegExp(`^[0-9]{8}$`);
 const reg_age = new RegExp(`^[0-9](([0-9])?[0-9])?$`);
 const reg_email = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
@@ -24,14 +25,34 @@ const reg_email = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"
 /*
 Select Method
 */
+router.get('/get_patientcount', (req, res, next) => {
+
+    var query = `SELECT COUNT(*) FROM patients;`;
+    con.query(query, (err, result, fields) => {
+        if (err) {
+            next(err);
+            res.status(500).json({
+                message: 'Internal server error.'
+            });
+        } else {
+            res.status(200).json(result);
+        }
+    });
+});
+
+
+/*
+Select Method
+*/
 router.get('/get_patients', (req, res, next) => {
+    const limit = reg_numberOnly.test(req.query.limit) ? req.query.limit : null;
+    const skip = reg_numberOnly.test(req.query.skip) ? req.query.skip : null;
+    const order = req.query.order;
     var values = [
-        req.query.order,
-        req.query.limit,
-        req.query.skip,
+        order
     ].filter(val => val);
 
-    var query = `SELECT * FROM patients ${req.query.order ? ' ORDER BY ?' : ''}${req.query.limit ? ` LIMIT ${req.query.skip ? `${req.query.skip}, ${req.query.limit}` : `${req.query.limit}`}` : ''};`;
+    var query = `SELECT * FROM patients ${order ? ' ORDER BY ?' : ''}${limit ? ` LIMIT ${skip ? `${skip}, ${limit}` : `${limit}`}` : ''};`;
     con.query(query, values, (err, result, fields) => {
         if (err) {
             next(err);
@@ -51,8 +72,8 @@ Insert Method
 router.post('/insert_patient', (req, res, next) => {
     var values = [
         req.body.id,
-        req.body.firstName,
-        req.body.lastName,
+        req.body.firstname,
+        req.body.lastname,
         req.body.age,
         req.body.gender,
         req.body.phone,
@@ -66,12 +87,12 @@ router.post('/insert_patient', (req, res, next) => {
             value: req.body.id
         },
         {
-            label: 'firstName',
-            value: req.body.firstName
+            label: 'firstname',
+            value: req.body.firstname
         },
         {
-            label: 'lastName',
-            value: req.body.lastName
+            label: 'lastname',
+            value: req.body.lastname
         },
         {
             label: 'age',
@@ -129,8 +150,8 @@ router.post('/insert_patient', (req, res, next) => {
                     }
                     break;
                 }
-                case 'firstName': { }
-                case 'lastName': { }
+                case 'firstname': { }
+                case 'lastname': { }
                 case 'gender': {
                     if (!reg_name.test(value.value)) {
                         errors.push({
@@ -223,37 +244,37 @@ Delete Method
 */
 router.delete('/delete_patient', (req, res, next) => {
     var values = [
-    req.query.id
+        req.query.id
     ].filter(val => val);
-    
+
     var errors = [];
-    
+
     /* VALIDATIONS */
-    
+
     // if id does not exist 
-    if(!req.query.id) {
+    if (!req.query.id) {
         errors.push({
             status: 400,
-            message:'Error: \'id\' field required.'
+            message: 'Error: \'id\' field required.'
         });
     }
-    
+
     /* AMBIGUOUS DATA */
-    
+
     // if there are more ids 
-    if(req.query.id instanceof Array && req.query.id.length > 1) {
+    if (req.query.id instanceof Array && req.query.id.length > 1) {
         errors.push({
             status: 400,
-            message:'Error: Ambiguous id.'
+            message: 'Error: Ambiguous id.'
         });
-    } 
-    
+    }
+
     // if OK
-    if(errors.length == 0) {
+    if (errors.length == 0) {
         var query = `DELETE FROM patients WHERE id=?;`;
-        
+
         con.query(query, values, (err, result, fields) => {
-            if(err) {
+            if (err) {
                 next(err);
                 res.status(500).json({
                     message: 'Internal server error.'
@@ -261,14 +282,14 @@ router.delete('/delete_patient', (req, res, next) => {
             } else {
                 res.status(200).json({
                     message: result.affectedRows > 0
-                    ? 'Patient has been deleted successfuly!'
-                    : `There is not a patient with id=${ req.query.id }.`,
+                        ? 'Patient has been deleted successfuly!'
+                        : `There is not a patient with id=${req.query.id}.`,
                     affectedRows: result.affectedRows
                 });
             }
         });
     }
-    
+
     // if there are errors 
     else {
         res.status(400).json({

@@ -1,0 +1,8 @@
+.cool {
+    border-color: white;
+}
+
+.cool:hover {
+    border-color: var(--success);
+    font-weight: bold;
+}

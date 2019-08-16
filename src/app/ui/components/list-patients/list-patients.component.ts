@@ -1,6 +1,6 @@
-import { Component, OnInit   } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PatientsService } from 'src/app/api/patients/patients.service';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-list-patients',
@@ -13,15 +13,17 @@ export class ListPatientsComponent implements OnInit {
   order: any;
   skip: any = 0;
   limit = 5;
+  count: any;
+  more: any;
 
   constructor(private patientsService: PatientsService) { }
 
   ngOnInit() {
-    this.getPatients(this.order, this.skip, this.limit);
+    this.upload();
   }
 
   getPatients(order, skip, limit) {
-    this.patientsService.getPatients({ order: order, skip: skip, limit: limit })
+    this.patientsService.getPatients({ order: order, skip: (skip * limit), limit: limit })
       .subscribe(
         res => {
           this.patients = res;
@@ -43,10 +45,10 @@ export class ListPatientsComponent implements OnInit {
       if (result.value) {
         this.patientsService.deletePatient(id).subscribe(
           res => {
-            this.getPatients(this.order, this.skip, this.limit);
+            this.upload();
             Swal.fire(
               'Deleted!',
-              'Your file has been deleted.',
+              'The patient has been deleted.',
               'success'
             );
           },
@@ -55,6 +57,31 @@ export class ListPatientsComponent implements OnInit {
 
       }
     })
+  }
+
+  getPatientCount() {
+    this.patientsService.getPatientCount().subscribe(res => {
+      this.count = res[0]['COUNT(*)'];
+      if (((this.skip * this.limit) + this.limit) < this.count) {
+        this.more = true;
+      } else {
+        this.more = false;
+      }
+    },
+      err => {
+        console.log(err)
+      })
+  }
+
+  morePatients() {
+    this.limit += 5;
+    this.upload();
+  }
+
+
+  upload() {
+    this.getPatients(this.order, this.skip, this.limit);
+    this.getPatientCount();
   }
 
 }
