@@ -26,7 +26,7 @@ export class PatientsService {
   }
 
   insertPatient(patient: any) {
-    return this.http.post(`${this.API_URI}/insert_patient`, patient);
+    return this.http.post(`${this.API_URI}/insert_patient?angular=true`, patient);
   }
 
 

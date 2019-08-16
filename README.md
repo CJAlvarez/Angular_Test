@@ -1,6 +1,6 @@
 # AT
 
-## Install depencies
+## Install dependencies
 `npm install`
 
 ## Run Complete App  
